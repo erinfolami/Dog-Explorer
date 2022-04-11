@@ -19,14 +19,14 @@ class MainActivity : AppCompatActivity() {
         //launching A new coroutine
         GlobalScope.launch {
             val result = DogFactApi.getDogFact("1")
-            if (result != null){
-            // Checking the results
-var facts = result.body()
+            if (result != null) {
+                // Checking the results
+                var facts = result.body()
 
-            if (facts != null) {
-                for (fact in facts) {
-                    Log.d("ayush: ", fact.fact)
-                }
+                if (facts != null) {
+                    for (fact in facts) {
+                        Log.d("ayush: ", fact.fact)
+                    }
 
                 }
             }

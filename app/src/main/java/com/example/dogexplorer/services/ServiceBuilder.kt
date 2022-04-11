@@ -7,9 +7,9 @@ object ServiceBuilder {
     val baseUrl = "https://dog-facts-api.herokuapp.com"
 
 
-    fun retrofitInstance() : Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl).
-        addConverterFactory(GsonConverterFactory.create())
+    fun retrofitInstance(): Retrofit {
+        return Retrofit.Builder().baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
