@@ -4,9 +4,10 @@ import com.example.dogexplorer.models.DogFactModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface ApiService {
-    @GET("/api/v1/resources/dogs")
-    suspend fun getDogFact(@Query("index") index: String): Response<List<DogFactModel>>
+    @GET("/facts/random")
+    suspend fun getDogFact(@QueryMap filter: HashMap<String, String>): Response<DogFactModel>
 
 }

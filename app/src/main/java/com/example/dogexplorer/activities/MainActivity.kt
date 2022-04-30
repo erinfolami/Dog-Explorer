@@ -3,35 +3,57 @@ package com.example.dogexplorer.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.dogexplorer.R
+import com.example.dogexplorer.databinding.ActivityMainBinding
+import com.example.dogexplorer.di.DaggerRetroComponent
+import com.example.dogexplorer.models.DogFactModel
 import com.example.dogexplorer.services.ApiService
-import com.example.dogexplorer.services.ServiceBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val DogFactApi = ServiceBuilder.buildService(ApiService::class.java)
 
-        //launching A new coroutine
-        GlobalScope.launch {
-            val result = DogFactApi.getDogFact("1")
-            if (result != null) {
-                // Checking the results
-                var facts = result.body()
+        initViewModel()
 
-                if (facts != null) {
-                    for (fact in facts) {
-                        Log.d("ayush: ", fact.fact)
-                    }
+        binding.dogFactBtn.setOnClickListener {
+            makeApiCall()
+        }
 
-                }
+
+    }
+
+
+    private fun initViewModel() {
+        mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        mainActivityViewModel.getLiveDataObserver().observe(this) { response ->
+            if (response != null) {
+            binding.dogFactTextView.text = response.text
+            } else {
+                Log.d("response", "error getting the data")
+
             }
-//            Log.d("ayush: ", result.body().toString())
-
         }
     }
+
+    private fun makeApiCall() {
+        mainActivityViewModel.getDogFact()
+    }
+
+
 }
