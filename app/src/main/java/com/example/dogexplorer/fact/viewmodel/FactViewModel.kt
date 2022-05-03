@@ -1,27 +1,21 @@
-package com.example.dogexplorer.activities
+package com.example.dogexplorer.fact.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dogexplorer.application.MyApplication
-import com.example.dogexplorer.di.DaggerRetroComponent
-import com.example.dogexplorer.di.ServiceBuilderModule
 import com.example.dogexplorer.models.DogFactModel
 import com.example.dogexplorer.repositories.Repository
-import com.example.dogexplorer.services.ApiService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//class MainActivityViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-class MainActivityViewModel constructor(application: Application) : AndroidViewModel(application) {
+class FactViewModel constructor(application: Application) : AndroidViewModel(application) {
 
     @Inject
     lateinit var repository: Repository
 
-    private lateinit var liveData: MutableLiveData<DogFactModel?>
+    private var liveData: MutableLiveData<DogFactModel?>
 
     init {
         // Make Dagger instantiate @Inject fields in MainActivityViewModel
