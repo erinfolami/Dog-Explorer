@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-object ServiceBuilderModule {
+object AppModule {
     val baseUrl = "https://cat-fact.herokuapp.com"
 
  

@@ -19,7 +19,7 @@ class FactViewModel constructor(application: Application) : AndroidViewModel(app
 
     init {
         // Make Dagger instantiate @Inject fields in MainActivityViewModel
-        (application as MyApplication).getRetroComponent().inject(this)
+        (application as MyApplication).getAppComponent().inject(this)
 
         liveData = MutableLiveData()
     }

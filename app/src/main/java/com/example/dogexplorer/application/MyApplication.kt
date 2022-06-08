@@ -1,27 +1,26 @@
 package com.example.dogexplorer.application
 
 import android.app.Application
-import com.example.dogexplorer.di.DaggerRetroComponent
-import com.example.dogexplorer.di.RetroComponent
-import com.example.dogexplorer.di.ServiceBuilderModule
+import com.example.dogexplorer.di.DaggerAppComponent
+import com.example.dogexplorer.di.AppComponent
 
 class MyApplication : Application() {
 
-    private lateinit var retroComponent: RetroComponent
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
         //This is where we initialize our RetroComponent class
-        initRetroComponent()
+        initAppComponent()
     }
 
-    fun initRetroComponent() {
-        retroComponent =
-            DaggerRetroComponent.builder().serviceBuilderModule(ServiceBuilderModule).build()
+    fun initAppComponent() {
+        appComponent =
+            DaggerAppComponent.builder().application(this).build()
     }
 
-    fun getRetroComponent(): RetroComponent = retroComponent
+    fun getAppComponent(): AppComponent = appComponent
 
 
 }
